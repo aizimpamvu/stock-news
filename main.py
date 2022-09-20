@@ -24,7 +24,7 @@ data_list = [value for (key, value) in stock_data.items()]
 yesterday_data = data_list[0]
 yesterday_closing_price = float(yesterday_data["4. close"])
 
-#get the day before yesterday market close price
+# get the day before yesterday market close price
 day_before_yesterday_data = data_list[1]
 day_before_yesterday_closing_price = float(day_before_yesterday_data["4. close"])
 
@@ -37,7 +37,7 @@ print(f"{round(market_change, 2)} %")
 
 ## STEP 2: https://newsapi.org/
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
-# TODO 6. - Instead of printing ("Get News"), use the News API to get articles related to the COMPANY_NAME.
+# Instead of printing ("Get News"), use the News API to get articles related to the COMPANY_NAME.
 if market_change > 1:
     new_params = {
         "qInTitle": "bitcoin",
@@ -46,17 +46,18 @@ if market_change > 1:
     new_response = requests.get(NEWS_ENDPOINT, params=new_params)
     articles = new_response.json()["articles"]
 
+    # T -Python slice operator to create a list that contains the first 3 articles. Hint:
+    # https://stackoverflow.com/questions/509211/understanding-slice-notation
 
-# TODO 7. - Use Python slice operator to create a list that contains the first 3 articles. Hint: https://stackoverflow.com/questions/509211/understanding-slice-notation
-    three_articles= articles[:3]
-    print(three_articles)
+    three_articles = articles[:3]
 
 ## STEP 3: Use twilio.com/docs/sms/quickstart/python
 # to send a separate message with each article's title and description to your phone number.
 
-# TODO 8. - Create a new list of the first 3 article's headline and description using list comprehension.
+# - Create a new list of the first 3 article's headline and description using list comprehension.
+    formatted_article_list = [f"Headline: {article['title']}. \n Brief: {article['description']}" for (article, description) in three_articles]
 
-# TODO 9. - Send each article as a separate message via Twilio.
+#  - Send each article as a separate message via Twilio.
 
 
 # Optional TODO: Format the message like this:
